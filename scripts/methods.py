@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
+import tensorflow as tf
 
 """ 
 ##################################################################
@@ -65,8 +66,8 @@ error measure for forecasting comparisons
 ############################################################### 
 """
 
-def smape(y_pred, y):
-    m = y.size
+def smape(y, y_pred):
+    m = tf.size(y)
     return np.sum(1/m * (np.abs(y_pred - y) / 
                 ((np.abs(y_pred) - np.abs(y)) * 2)))
 
