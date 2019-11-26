@@ -18,7 +18,7 @@ def build_model(n_input, n_hidden):
         model = keras.Sequential([
             layers.Dense(1, activation='sigmoid', input_shape=(n_input,)),
             layers.Dense(1, activation='linear')])
-
+# adjust sgd then is cool
     model.compile(optimizer='sgd',loss='mse')
     return model
 
@@ -33,8 +33,6 @@ with open('./data/data_pre.pickle', 'rb') as f:
 for ser in series:
     for n in N:
         x, y = create_input_data(ser, n_lagged=n)
-        print(x.shape)
-        print(y.shape)
         for nh in NH:
             # mlp_regressor.set_params(hidden_layer_sizes=nh)
             mlp_regressor = build_model(n, nh)
@@ -45,7 +43,9 @@ for ser in series:
                 y_valid = split_array(x, test_index[1]) """
             # how to combine fit and k_fold ??? just ignore ???
             mlp_regressor.fit(x, y, epochs=5)
-            y_pre = mlp_regressor.predict(x[1])
-            print(y_pre[0])
+            y_pre = mlp_regressor.predict(x[1:3])
+            # y_pre is ndarray(num_inputs*output)!!!
+            print(y_pre)
+
 
         

@@ -67,7 +67,7 @@ error measure for forecasting comparisons
 """
 
 def smape(y, y_pred):
-    m = tf.size(y)
+    m = y.size
     return np.sum(1/m * (np.abs(y_pred - y) / 
                 ((np.abs(y_pred) - np.abs(y)) * 2)))
 
